@@ -45,6 +45,7 @@ public:
     int get_state() const;
     void receive_hit();
     void load_textures();
+    void set_id(int id);
 };
 
 // What do I want the game class to do?
@@ -58,5 +59,5 @@ private:
     int state;
 public:
     game();
-    
+    int get_state() const;
 };

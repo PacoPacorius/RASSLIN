@@ -1,11 +1,16 @@
-//TODO: animations for combat, end of game, start menu, maybe add a second attack?, maybe add a healthbar and a counter?, implement game class and game states, tidy up everything
+//TODO: start menu, winning animation, color and detail wrestler sprites
 //TODO2: assert that the loading of textures is succesful also debug mode?
+//IDEAS: add a second attack or a block?, maybe add a healthbar and a counter?, ai
 #include "classes.h"
 
 int main(){
     sf::RenderWindow Win(sf::VideoMode(800, 600), "", sf::Style::None);
     Win.setPosition(sf::Vector2i(10, 50));
     Win.setFramerateLimit(50);
+
+    int state = MENU;
+
+    // game geim();
 
     wrestler rassler(PLAYER_1);
     wrestler rassler2(PLAYER_2);
@@ -39,24 +44,37 @@ int main(){
             Win.close();
         }
 
-        rassler.logic(rassler2);
-        rassler2.logic(rassler);
-
-        std::cout<<"RASSLER 1: "<<rassler.get_health()<<std::endl;
-        std::cout<<"RASSLER 2: "<<rassler2.get_health()<<std::endl;
-
         Win.clear();
 
-        Win.draw(ring);
+        if(state == MENU){                      // this will prove useful later when I make a main menu
+            state = IN_GAME;
+        }
 
-        // Win.draw(rectangle);
+        if(state == IN_GAME){                   // where all the punchy punchy happens
+            rassler.logic(rassler2);
+            rassler2.logic(rassler);
 
-        Win.draw(rassler.get_sprite());
-        Win.draw(rassler2.get_sprite());
+            std::cout<<"RASSLER 1: "<<rassler.get_health()<<std::endl;
+            std::cout<<"RASSLER 2: "<<rassler2.get_health()<<std::endl<<std::endl;
 
-        Win.draw(ring_ropes);
+            if(rassler.get_state() == DOWNED_STATE || rassler2.get_state() == DOWNED_STATE)
+                state = END_GAME;
 
-        Win.display();
+            Win.draw(ring);
+
+            // Win.draw(rectangle);
+
+            Win.draw(rassler.get_sprite());
+            Win.draw(rassler2.get_sprite());
+
+            Win.draw(ring_ropes);
+
+            Win.display();
+        }
+        else if(state == END_GAME){             // will display a winning animation
+            rassler.get_state() == DOWNED_STATE ? std::cout<<"Player 2 WINS!"<<std::endl<<std::endl : std::cout<<"Player 1 WINS!"<<std::endl<<std::endl;
+            return 0;
+        }
     }
     return 0;
 }

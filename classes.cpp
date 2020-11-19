@@ -112,7 +112,7 @@ void wrestler::logic(wrestler& opp){
 
     if(health < 1){
         state = DOWNED_STATE;
-        std::cout<<"PLAYER "<<id<<" LOSES!"<<std::endl;
+        // std::cout<<"PLAYER "<<id<<" LOSES!"<<std::endl;
     }
 }
 
@@ -131,9 +131,9 @@ void wrestler::attack(wrestler& opp){
 
         if(boundingbox.intersects(boundingbox2)){
             opp.receive_hit();
-            std::cout<<"*****"<<std::endl;
-            std::cout<<"*HIT*"<<std::endl;
-            std::cout<<"*****"<<std::endl;
+            // std::cout<<"*****"<<std::endl;
+            // std::cout<<"*HIT*"<<std::endl;
+            // std::cout<<"*****"<<std::endl;
         }
     }
 }
@@ -162,8 +162,16 @@ void wrestler::load_textures(){
     tex_damage_left.loadFromFile("damage_left.png");
 }
 
+void wrestler::set_id(int id){
+    this->id = id;
+}
+
 // GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME
 
-game::game(){
-    state = MENU;
-}
+// game::game(){
+//     state = MENU;
+// }
+//
+// int game::get_state() const{
+//     return state;
+// }
