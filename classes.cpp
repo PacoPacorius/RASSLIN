@@ -8,7 +8,9 @@ wrestler::wrestler(int i)/* : celebration(spr) */{
     health = 100;
     state = IDLE_STATE;
 
-    // celebration.bind_sprite(spr);
+    load_textures();
+    
+    celebration.bind_sprite(spr);
 
     if(id == PLAYER_1){
         spr.setTexture(tex_idle_right, true);
@@ -20,8 +22,6 @@ wrestler::wrestler(int i)/* : celebration(spr) */{
         spr.setPosition(sf::Vector2f(400.f, 250.f));
         direction = LOOKING_LEFT;
     }
-
-    load_textures();
 
     // celebration.addFrame({sf::IntRect(10, 0, 70, 92), 0.0001});
     // celebration.addFrame({sf::IntRect(81, 0, 70, 92), 0.0001});
