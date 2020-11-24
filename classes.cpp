@@ -1,25 +1,32 @@
+#include "Animation.h"
 #include "classes.h"
 
 // WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER
 
-wrestler::wrestler(int i){
+wrestler::wrestler(int i)/* : celebration(spr) */{
     id = i;
     health = 100;
     state = IDLE_STATE;
 
-    load_textures();
+    // celebration.bind_sprite(spr);
 
     if(id == PLAYER_1){
-        spr.setTexture(tex_idle_right);
+        spr.setTexture(tex_idle_right, true);
         spr.setPosition(sf::Vector2f(200.f, 150.f));
         direction = LOOKING_RIGHT;
     }
     else{
-        spr.setTexture(tex_idle_left);
+        spr.setTexture(tex_idle_left, true);
         spr.setPosition(sf::Vector2f(400.f, 250.f));
         direction = LOOKING_LEFT;
     }
 
+    load_textures();
+
+    // celebration.addFrame({sf::IntRect(10, 0, 70, 92), 0.0001});
+    // celebration.addFrame({sf::IntRect(81, 0, 70, 92), 0.0001});
+    // celebration.addFrame({sf::IntRect(151, 0, 70, 92), 0.0001});
+    // celebration.addFrame({sf::IntRect(223, 0, 70, 92), 0.0001});
 
     time = 0;
 }
@@ -119,7 +126,7 @@ void wrestler::logic(wrestler& opp){
 void wrestler::attack(wrestler& opp){
     if(state == IDLE_STATE){
         state = ATTACK_STATE;
-        // std::cout<<"ATTACK"<<std::endl;
+        std::cout<<"ATTACK"<<std::endl;
 
         direction == LOOKING_LEFT ? spr.setTexture(tex_attack_left) : spr.setTexture(tex_attack_right);
 
@@ -154,16 +161,35 @@ void wrestler::receive_hit(){
 }
 
 void wrestler::load_textures(){
-    tex_idle_right.loadFromFile("rassler_right.png");
-    tex_idle_left.loadFromFile("rassler_left.png");
-    tex_attack_right.loadFromFile("punch_right.png");
-    tex_attack_left.loadFromFile("punch_left.png");
-    tex_damage_right.loadFromFile("damage_right.png");
-    tex_damage_left.loadFromFile("damage_left.png");
+    if(!tex_idle_right.loadFromFile("rassler_right.png"))
+        std::cout<<"This bitch1"<<std::endl;
+    if(!tex_idle_left.loadFromFile("rassler_left.png"))
+        std::cout<<"This bitch2"<<std::endl;;
+    if(!tex_attack_right.loadFromFile("punch_right.png"))
+        std::cout<<"This bitch3"<<std::endl;
+    if(!tex_attack_left.loadFromFile("punch_left.png"))
+        std::cout<<"This bitch4"<<std::endl;
+    if(!tex_damage_right.loadFromFile("damage_right.png"))
+        std::cout<<"This bitch5"<<std::endl;
+    if(!tex_damage_left.loadFromFile("damage_left.png"))
+        std::cout<<"This bitch6"<<std::endl;
+    if(!tex_celebrating.loadFromFile("celebration_spritesheet.png"))
+        std::cout<<"This bitch7"<<std::endl;
+    if(!tex_down.loadFromFile("rassler_down.png"))
+        std::cout<<"This bitch8"<<std::endl;
 }
 
 void wrestler::set_id(int id){
     this->id = id;
+}
+
+// void wrestler::animate_celebration(){
+//     time++;
+//     // celebration.update(time);
+// }
+
+sf::Texture wrestler::get_downed_texture(){
+    return tex_down;
 }
 
 // GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME

@@ -25,13 +25,16 @@ private:
     sf::Texture tex_attack_left;
     sf::Texture tex_damage_right;
     sf::Texture tex_damage_left;
+    sf::Texture tex_celebrating;
+    sf::Texture tex_down;
     sf::Sprite spr;
     int health;
     int direction;
     int id;
     int state;
+    // animation celebration;
 public:
-    int time;
+    double time;
     wrestler(int i);
     // void load_texture(std::string& filename);
     // void set_texture();
@@ -46,6 +49,8 @@ public:
     void receive_hit();
     void load_textures();
     void set_id(int id);
+    // void animate_celebration();
+    sf::Texture get_downed_texture();               // cant be bothered to have a better solution than this
 };
 
 // What do I want the game class to do?
@@ -53,11 +58,12 @@ public:
 // 2. main menu will have the option of 2 players or player vs AI
 // 3. The game state is where all the punchy punchy happens. At some point, have the game class handle two health bars and a timere
 // 4. end-game will play an animation of the player who won while th other player is laying down. After some time, you can return to the main menu after pressing any key
-
-class game{
-private:
-    int state;
-public:
-    game();
-    int get_state() const;
-};
+//
+// class game{
+// private:
+//     int state;
+// public:
+//     game();
+//     void set_state(int new_state);
+//     int get_state() const;
+// };

@@ -1,6 +1,8 @@
-//TODO: start menu, winning animation, color and detail wrestler sprites
-//TODO2: assert that the loading of textures is succesful also debug mode?
-//IDEAS: add a second attack or a block?, maybe add a healthbar and a counter?, ai
+// FIX: sprites don't show up for some reason even though they should, the textures load succesfully check if everything is ok in the logic method again
+// TODO: start menu, winning animation, color and detail wrestler sprites
+// TODO2: assert that the loading of textures is succesful also debug mode?
+// IDEAS: add a second attack or a block?, maybe add a healthbar and a counter?, ai
+#include "Animation.h"
 #include "classes.h"
 
 int main(){
@@ -60,6 +62,8 @@ int main(){
             if(rassler.get_state() == DOWNED_STATE || rassler2.get_state() == DOWNED_STATE)
                 state = END_GAME;
 
+            Win.clear();
+
             Win.draw(ring);
 
             // Win.draw(rectangle);
@@ -70,10 +74,36 @@ int main(){
             Win.draw(ring_ropes);
 
             Win.display();
+            // state = END_GAME;
         }
         else if(state == END_GAME){             // will display a winning animation
             rassler.get_state() == DOWNED_STATE ? std::cout<<"Player 2 WINS!"<<std::endl<<std::endl : std::cout<<"Player 1 WINS!"<<std::endl<<std::endl;
-            return 0;
+
+            if(rassler.get_state() == DOWNED_STATE){
+                std::cout<<"Player 2 WINS!"<<std::endl<<std::endl;
+                rassler2.time = 0;
+                // rassler2.animate_celebration();
+                rassler.get_sprite().setTexture(rassler.get_downed_texture());
+            }
+            else{
+                std::cout<<"Player 1 WINS!"<<std::endl<<std::endl;
+                rassler.time = 0;
+                // rassler.animate_celebration();
+                rassler2.get_sprite().setTexture(rassler2.get_downed_texture());
+            }
+
+            Win.draw(ring);
+
+            // Win.draw(rectangle);
+
+            Win.draw(rassler.get_sprite());
+            Win.draw(rassler2.get_sprite());
+
+            Win.draw(ring_ropes);
+
+            Win.display();
+
+            // Win.close();
         }
     }
     return 0;
