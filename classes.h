@@ -28,17 +28,18 @@ private:
     sf::Texture tex_celebrating;
     sf::Texture tex_down;
     sf::Sprite spr;
+    sf::Sprite spr_celebrate;
     int health;
     int direction;
     int id;
     int state;
-    // animation celebration;
+    animation celebration;
 public:
     double time;
     wrestler(int i);
     // void load_texture(std::string& filename);
-    // void set_texture();
-    // sf::Texture get_texture();
+    void set_texture();
+    sf::Texture get_texture();
     sf::Sprite get_sprite();
     int get_health() const;
     void change_health(int amount);
@@ -49,8 +50,10 @@ public:
     void receive_hit();
     void load_textures();
     void set_id(int id);
-    // void animate_celebration();
+    void animate_celebration();
     sf::Texture get_downed_texture();               // cant be bothered to have a better solution than this
+    sf::Texture get_celeb_spritesheet();
+    sf::Sprite get_sprite_celebrate();
 };
 
 // What do I want the game class to do?

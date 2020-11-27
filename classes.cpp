@@ -3,30 +3,32 @@
 
 // WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER WRESTLER
 
-wrestler::wrestler(int i)/* : celebration(spr) */{
+wrestler::wrestler(int i) : celebration(spr) {
     id = i;
     health = 100;
     state = IDLE_STATE;
 
     load_textures();
-    
-    celebration.bind_sprite(spr);
+    // celebration.bind_sprite(spr);
 
     if(id == PLAYER_1){
-        spr.setTexture(tex_idle_right, true);
+        spr.setTexture(tex_idle_right);
         spr.setPosition(sf::Vector2f(200.f, 150.f));
         direction = LOOKING_RIGHT;
     }
     else{
-        spr.setTexture(tex_idle_left, true);
+        spr.setTexture(tex_idle_left);
         spr.setPosition(sf::Vector2f(400.f, 250.f));
         direction = LOOKING_LEFT;
     }
 
-    // celebration.addFrame({sf::IntRect(10, 0, 70, 92), 0.0001});
-    // celebration.addFrame({sf::IntRect(81, 0, 70, 92), 0.0001});
-    // celebration.addFrame({sf::IntRect(151, 0, 70, 92), 0.0001});
-    // celebration.addFrame({sf::IntRect(223, 0, 70, 92), 0.0001});
+
+    celebration.addFrame({sf::IntRect(10, 0, 70, 92), 100});
+    celebration.addFrame({sf::IntRect(81, 0, 70, 92), 100});
+    celebration.addFrame({sf::IntRect(151, 0, 70, 92), 100});
+    celebration.addFrame({sf::IntRect(223, 0, 70, 92), 100});
+
+    spr_celebrate.setTexture(tex_celebrating);
 
     time = 0;
 }
@@ -183,13 +185,21 @@ void wrestler::set_id(int id){
     this->id = id;
 }
 
-// void wrestler::animate_celebration(){
-//     time++;
-//     // celebration.update(time);
-// }
+void wrestler::animate_celebration(){
+    time++;
+    celebration.update(time);
+}
 
 sf::Texture wrestler::get_downed_texture(){
     return tex_down;
+}
+
+sf::Texture wrestler::get_celeb_spritesheet(){
+    return tex_celebrating;
+}
+
+sf::Sprite wrestler::get_sprite_celebrate(){
+    return spr_celebrate;
 }
 
 // GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME GAME
