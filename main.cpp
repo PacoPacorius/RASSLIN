@@ -1,6 +1,9 @@
-//TODO: start menu, winning animation, color and detail wrestler sprites
-//TODO2: assert that the loading of textures is succesful also debug mode?
-//IDEAS: add a second attack or a block?, maybe add a healthbar and a counter?, ai
+// TODO: start menu, winning animation, color and detail wrestler sprites
+// TODO2: assert that the loading of textures is succesful also debug mode?
+// IDEAS: add a second attack or a block?, maybe add a healthbar and a counter?, ai
+
+// USING ONE SPRITE AND REBINDING TEXTURES TO IT ALL THE TIME IMPACTS PERFORMANCE NEGATIVELY! It is better to have more sprites
+#include "Animation.h"
 #include "classes.h"
 
 int main(){
@@ -46,6 +49,9 @@ int main(){
 
         Win.clear();
 
+        // Win.draw(ring);
+
+
         if(state == MENU){                      // this will prove useful later when I make a main menu
             state = IN_GAME;
         }
@@ -60,6 +66,41 @@ int main(){
             if(rassler.get_state() == DOWNED_STATE || rassler2.get_state() == DOWNED_STATE)
                 state = END_GAME;
 
+            // Win.clear();
+
+            // Win.draw(rectangle);
+
+            // Win.draw(rassler.get_sprite());
+            // Win.draw(rassler2.get_sprite());
+
+
+            // Win.display();
+            // state = END_GAME;
+        }
+        else if(state == END_GAME){             // will display a winning animation
+            rassler.get_state() == DOWNED_STATE ? std::cout<<"Player 2 WINS!"<<std::endl<<std::endl : std::cout<<"Player 1 WINS!"<<std::endl<<std::endl;
+            std::cout<<"yass"<<std::endl;
+            if(rassler.get_state() == DOWNED_STATE){
+                std::cout<<"Player 2 WINS!"<<std::endl<<std::endl;
+                rassler2.time = 0;
+                rassler2.get_sprite_celebrate().setPosition(sf::Vector2f(rassler2.get_sprite().getPosition()));
+                rassler2.animate_celebration();
+                rassler.get_sprite().setTexture(rassler.get_downed_texture());
+
+                // Win.draw(rassler2.get_sprite_celebrate());
+                // Win.draw(rassler.get_sprite());
+            }
+            else{
+                std::cout<<"Player 1 WINS!"<<std::endl<<std::endl;
+                rassler.time = 0;
+                rassler.get_sprite_celebrate().setPosition(rassler.get_sprite().getPosition());
+                rassler.animate_celebration();
+                rassler2.get_sprite().setTexture(rassler2.get_downed_texture());
+
+                // Win.draw(rassler.get_sprite_celebrate());
+                // Win.draw(rassler2.get_sprite());
+            }
+
             Win.draw(ring);
 
             // Win.draw(rectangle);
@@ -70,10 +111,8 @@ int main(){
             Win.draw(ring_ropes);
 
             Win.display();
-        }
-        else if(state == END_GAME){             // will display a winning animation
-            rassler.get_state() == DOWNED_STATE ? std::cout<<"Player 2 WINS!"<<std::endl<<std::endl : std::cout<<"Player 1 WINS!"<<std::endl<<std::endl;
-            return 0;
+
+            // Win.close();
         }
     }
     return 0;
